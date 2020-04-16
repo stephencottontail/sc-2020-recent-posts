@@ -1,5 +1,4 @@
 const path = require( 'path' )
-const dependencyExtraction = require( '@wordpress/dependency-extraction-webpack-plugin' )
 
 const isProduction = 'production' === process.env.NODE_ENV
 const mode = isProduction ? 'production' : 'development';
@@ -25,9 +24,6 @@ module.exports = {
 			} ]
 		} ]
 	},
-	plugins: [
-		new dependencyExtraction()
-	],
 	stats: {
 		children: false
 	}

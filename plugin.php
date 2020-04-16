@@ -8,7 +8,7 @@
 
 	class SC_Recent_Posts extends WP_Block_Type {
 		public $name = 'sc/recent-posts';
-		public $editor_script = 'sc-recent-posts-script';
+		public $editor_script = 'sc-recent-posts-editor-script';
 		public $editor_style = 'sc-recent-posts-editor-style';
 		public $render_callback = 'sc_recent_posts_render';
 
@@ -29,9 +29,11 @@
 	}
 		
 	add_action( 'init', function() {
-		$script_assets = require( 'js/block.asset.php' );
+		$script_path = 'js/block.js';
+		$script_url = plugins_url( $script_path, __FILE__ );
+
 		wp_register_style( 'sc-recent-posts-editor-style', plugins_url( 'js/editor.css', __FILE__ ) );
-		wp_register_script( 'sc-recent-posts-script', plugins_url( 'js/block.js', __FILE__ ), $script_assets['dependencies'], $script_assets['version'] );
+		wp_register_script( 'sc-recent-posts-editor-script', $script_url, array( 'wp-api-fetch', 'wp-blocks', 'wp-data', 'wp-element' ) );
 
 		$recent_posts = new SC_Recent_Posts();
 		register_block_type( $recent_posts );
