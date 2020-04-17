@@ -12,6 +12,9 @@ module.exports = {
 		filename: '[name].js',
 		path: path.resolve( process.cwd(), 'dist' )
 	},
+	optimization: {
+		usedExports: true
+	},
 	externals: {
 		'@wordpress/blocks': 'wp.blocks',
 		'@wordpress/block-editor': 'wp.blockEditor',
