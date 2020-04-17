@@ -6,7 +6,8 @@ const mode = isProduction ? 'production' : 'development';
 module.exports = {
 	mode,
 	entry: {
-		block: path.resolve( process.cwd(), 'src', 'block.js' )
+		block: path.resolve( process.cwd(), 'src', 'block.js' ),
+		sidebar: path.resolve( process.cwd(), 'src', 'sidebar.js' )
 	},
 	output: {
 		filename: '[name].js',
@@ -17,7 +18,9 @@ module.exports = {
 		'@wordpress/block-editor': 'wp.blockEditor',
 		'@wordpress/components': 'wp.components',
 		'@wordpress/data': 'wp.data',
-		'@wordpress/element': 'wp.element'
+		'@wordpress/edit-post': 'wp.editPost',
+		'@wordpress/element': 'wp.element',
+		'@wordpress/plugins': 'wp.plugins'
 	},
 	module: {
 		rules: [ {
