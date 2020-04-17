@@ -23,6 +23,11 @@
   "homepage": "https://github.com/stephencottontail/sc-2020-recent-posts#readme",
   "devDependencies": {
     "@wordpress/babel-preset-default": "^4.12.1",
+    "@wordpress/block-editor": "^3.9.1",
+    "@wordpress/blocks": "^6.14.1",
+    "@wordpress/components": "^9.4.1",
+    "@wordpress/data": "^4.16.1",
+    "@wordpress/element": "^2.13.1",
     "autoprefixer": "^9.7.6",
     "babel": "^6.23.0",
     "babel-loader": "^8.1.0",

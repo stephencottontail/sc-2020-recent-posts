@@ -1,23 +1,67 @@
-import { createElement as el, Component } from '@wordpress/element'
+import { createElement as el } from '@wordpress/element'
+import { withSelect } from '@wordpress/data'
+import { PanelBody, SelectControl, RangeControl } from '@wordpress/components'
+import { InspectorControls } from '@wordpress/block-editor'
 
-class Edit extends Component {
-	constructor( props ) {
-		super( props )
-	}
+function Edit( props ) {
+	const { types, attributes, setAttributes } = props
+	const { className, selectedType, postsPerBlock } = attributes
 
-	render() {
-		const { className } = this.props
-
-		return (
+	const Controls = (
+		el(
+			InspectorControls,
+			{},
 			el(
-				'div',
+				PanelBody,
 				{
-					className: className
+					title: 'Block Options',
+					initialOpen: true
 				},
-				'Hello from the editor!'
+				el(
+					SelectControl,
+					{
+						label: 'Post Type',
+						value: selectedType,
+						onChange: ( type ) => {
+							setAttributes( { selectedType: type } )
+						},
+						options: ( types && types.map( ( value, index ) => {
+							return {
+								key: index,
+								value: value.slug,
+								label: value.name
+							}
+						} ) )
+					}
+				),
+				el(
+					RangeControl,
+					{
+						label: 'Posts to Show',
+						onChange: ( number ) => {
+							setAttributes( { postsPerBlock: number } )
+						},
+						value: postsPerBlock,
+						min: 1,
+						max: 9
+					}
+				)
 			)
 		)
-	}
+	)
+
+	return ( [
+		( types && Controls ),
+		el(
+			'p',
+			{ className: className },
+			'Hello from the editor!'
+		)
+	] )
 }
 
-export default Edit
+export default withSelect( select => {
+	return {
+		types: select( 'core' ).getEntityRecords( 'root', 'postType' )
+	}
+} )( Edit )

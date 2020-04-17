@@ -12,6 +12,13 @@ module.exports = {
 		filename: '[name].js',
 		path: path.resolve( process.cwd(), 'dist' )
 	},
+	externals: {
+		'@wordpress/blocks': 'wp.blocks',
+		'@wordpress/block-editor': 'wp.blockEditor',
+		'@wordpress/components': 'wp.components',
+		'@wordpress/data': 'wp.data',
+		'@wordpress/element': 'wp.element'
+	},
 	module: {
 		rules: [ {
 			test: /\.js$/,

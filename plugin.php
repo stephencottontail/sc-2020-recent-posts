@@ -27,13 +27,13 @@
 	function sc_recent_posts_render( $attributes ) {
 		return '<p>Hello from PHP!</p>';
 	}
-		
+
 	add_action( 'init', function() {
 		$script_path = 'js/block.js';
 		$script_url = plugins_url( $script_path, __FILE__ );
 
-		wp_register_style( 'sc-recent-posts-editor-style', plugins_url( 'js/editor.css', __FILE__ ) );
-		wp_register_script( 'sc-recent-posts-editor-script', $script_url, array( 'wp-api-fetch', 'wp-blocks', 'wp-data', 'wp-element' ) );
+		wp_register_style( 'sc-recent-posts-editor-style', plugins_url( 'js/editor.css', __FILE__ ), array( 'wp-components' ) );
+		wp_register_script( 'sc-recent-posts-editor-script', $script_url, array( 'wp-block-editor', 'wp-components', 'wp-blocks', 'wp-data', 'wp-element' ) );
 
 		$recent_posts = new SC_Recent_Posts();
 		register_block_type( $recent_posts );
