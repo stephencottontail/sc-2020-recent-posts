@@ -4,8 +4,8 @@ import { PanelBody, SelectControl, RangeControl } from '@wordpress/components'
 import { InspectorControls } from '@wordpress/block-editor'
 
 function Edit( props ) {
-	const { types, attributes, setAttributes } = props
-	const { className, selectedType, postsPerBlock } = attributes
+	const { types, attributes, setAttributes, className } = props
+	const { selectedType, postsPerBlock } = attributes
 
 	const Controls = (
 		el(
@@ -14,6 +14,7 @@ function Edit( props ) {
 			el(
 				PanelBody,
 				{
+					className: className,
 					title: 'Block Options',
 					initialOpen: true
 				},
