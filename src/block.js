@@ -8,11 +8,11 @@ registerBlockType( 'sc/recent-posts', {
 	attributes: {
 		selectedType: {
 			type: 'string',
-			default: ''
+			default: 'post'
 		},
 		postsPerBlock: {
 			type: 'number',
-			default: '5'
+			default: 5
 		}
 	},
 	edit

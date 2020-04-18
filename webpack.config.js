@@ -17,7 +17,8 @@ module.exports = {
 		'@wordpress/block-editor': 'wp.blockEditor',
 		'@wordpress/components': 'wp.components',
 		'@wordpress/data': 'wp.data',
-		'@wordpress/element': 'wp.element'
+		'@wordpress/element': 'wp.element',
+		'moment': 'window.moment'
 	},
 	module: {
 		rules: [ {
