@@ -37,6 +37,39 @@
 
 		$recent_posts = new SC_Recent_Posts();
 		register_block_type( $recent_posts );
+	} );
+
+	add_action( 'init', function() {
+		register_post_type( 'themes', array(
+			'labels' => array(
+				'singular_name' => 'Theme Post',
+				'name'          => 'Theme Posts'
+			),
+			'public' => true,
+			'has_archive' => true,
+			'rewrite' => array(
+				'slug' => 'themes'
+			),
+			'show_in_rest' => true
+		) );
+
+		register_post_type( 'projects', array(
+			'labels' => array(
+				'singular_name' => 'Project',
+				'name'          => 'Projects'
+			),
+			'public' => true,
+			'has_archive' => true,
+			'rewrite' => array(
+				'slug' => 'projects'
+			),
+			'show_in_rest' => true
+		) );
+
+		wp_oembed_add_provider( 'https://codepen.io/*/pen/*', 'https://codepen.io/api/oembed' );
+
+		add_post_type_support( 'themes', 'custom-fields' );
+		add_post_type_support( 'projects', 'custom-fields' );
 
 		register_post_meta( 'projects', 'sc_recent_posts_codepen_url', array(
 			'show_in_rest' => true,
