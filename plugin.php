@@ -37,8 +37,14 @@
 
 		$recent_posts = new SC_Recent_Posts();
 		register_block_type( $recent_posts );
+
+		register_post_meta( 'projects', 'sc_recent_posts_codepen_url', array(
+			'show_in_rest' => true,
+			'single'       => true,
+			'type'         => 'string'
+		) );
 	} );
 
 	add_action( 'enqueue_block_editor_assets', function() {
-		wp_enqueue_script( 'sc-recent-posts-sidebar', plugins_url( 'js/sidebar.js', __FILE__ ), array( 'wp-data', 'wp-edit-post', 'wp-element', 'wp-plugins' ) );
+		wp_enqueue_script( 'sc-recent-posts-sidebar', plugins_url( 'js/sidebar.js', __FILE__ ), array( 'wp-block-editor', 'wp-compose',  'wp-data', 'wp-edit-post', 'wp-element', 'wp-plugins' ) );
 	} );

@@ -17,6 +17,7 @@ module.exports = {
 		'@wordpress/blocks': 'wp.blocks',
 		'@wordpress/block-editor': 'wp.blockEditor',
 		'@wordpress/components': 'wp.components',
+		'@wordpress/compose': 'wp.compose',
 		'@wordpress/data': 'wp.data',
 		'@wordpress/edit-post': 'wp.editPost',
 		'@wordpress/element': 'wp.element',
