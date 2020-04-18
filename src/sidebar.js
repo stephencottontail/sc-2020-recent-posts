@@ -1,5 +1,5 @@
 import { registerPlugin } from '@wordpress/plugins'
-import { PluginSidebar } from '@wordpress/edit-post'
+import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/edit-post'
 import { createElement as el } from '@wordpress/element'
 import { select, withSelect, withDispatch } from '@wordpress/data'
 import { compose } from '@wordpress/compose'
@@ -39,6 +39,14 @@ const CodePenURL = compose(
 
 registerPlugin( 'sc-recent-posts-sidebar', {
 	render: () => {
+		const MoreMenuItem = el(
+			PluginSidebarMoreMenuItem,
+			{
+				target: 'sc-recent-posts-sidebar',
+				icon: 'admin-site-alt2'
+			},
+			'Project URL'
+		)
 		const Sidebar = el(
 			PluginSidebar,
 			{
@@ -52,6 +60,8 @@ registerPlugin( 'sc-recent-posts-sidebar', {
 			)
 		)
 
-		return ( 'projects' === select( 'core/editor' ).getCurrentPost().type && Sidebar )
+		return ( [
+			( 'projects' === select( 'core/editor' ).getCurrentPost().type && [ MoreMenuItem, Sidebar ] )
+		] )
 	}
 } )
