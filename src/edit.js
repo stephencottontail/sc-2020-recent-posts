@@ -1,12 +1,12 @@
 import { createElement as el } from '@wordpress/element'
 import { withSelect } from '@wordpress/data'
 import { PanelBody, SelectControl, RangeControl } from '@wordpress/components'
-import { InspectorControls } from '@wordpress/block-editor'
+import { MediaUpload, InspectorControls } from '@wordpress/block-editor'
 import moment from 'moment'
 
 function Edit( props ) {
 	const { posts, types, attributes, setAttributes, className } = props
-	const { selectedType, postsPerBlock } = attributes
+	const { backgroundImage, selectedType, postsPerBlock } = attributes
 
 	const Controls = (
 		el(
@@ -46,6 +46,40 @@ function Edit( props ) {
 						value: postsPerBlock,
 						min: 1,
 						max: 9
+					}
+				)
+			),
+			el(
+				PanelBody,
+				{
+					className: className,
+					title: 'Background Options',
+				},
+				( backgroundImage && el(
+					'img',
+					{
+						src: backgroundImage,
+						className: `${className}__preview`
+					},
+				) ),
+				el(
+					MediaUpload,
+					{
+						value: backgroundImage,
+						onSelect: ( image ) => {
+							setAttributes( { backgroundImage: image.url } )
+						},
+						render: ( open ) => {
+							return (
+								el(
+									'button',
+									{
+										onClick: open.open
+									},
+									'Select Image'
+								)
+							)
+						}
 					}
 				)
 			)
@@ -100,7 +134,6 @@ function Edit( props ) {
 				'div',
 				{ className: `${className}__entries` },
 				( posts && posts.map( ( value, index ) => {
-					console.log( value )
 					return (
 						el(
 							'article',

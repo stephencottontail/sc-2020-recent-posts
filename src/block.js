@@ -6,6 +6,10 @@ registerBlockType( 'sc/recent-posts', {
 	icon: 'editor-ol',
 	category: 'common',
 	attributes: {
+		backgroundImage: {
+			type: 'string',
+			default: ''
+		},
 		selectedType: {
 			type: 'string',
 			default: 'post'
