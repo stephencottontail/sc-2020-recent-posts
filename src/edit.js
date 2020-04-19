@@ -1,6 +1,6 @@
 import { createElement as el } from '@wordpress/element'
 import { withSelect } from '@wordpress/data'
-import { PanelBody, SelectControl, RangeControl } from '@wordpress/components'
+import { PanelBody, SelectControl, RangeControl, Spinner } from '@wordpress/components'
 import { MediaUpload, InspectorControls } from '@wordpress/block-editor'
 import moment from 'moment'
 
@@ -86,11 +86,121 @@ function Edit( props ) {
 		)
 	)
 
+	const Content =
+		  ( ! posts
+			? el(
+				Spinner,
+				{}
+			)
+			: el(
+				'div',
+				{ className: `${className}__entries` },
+				posts.map( ( value, index ) => {
+					return (
+						el(
+							'article',
+							{
+								key: index,
+								className: `${className}__entry`
+							},
+							el(
+								'h2',
+								{
+									className: `${className}__title`
+								},
+								el(
+									'a',
+									{
+										href: value.link
+									},
+									value.title.rendered
+								)
+							),
+							el(
+								'time',
+								{
+									dateTime: value.date
+								},
+								moment( value.date ).format( 'MMMM Do, YYYY' )
+							)
+						)
+					)
+				} )
+			)
+		  )
+
 	return ( [
 		( types && Controls ),
 		el(
 			'div',
 			{ className: className },
+			el(
+				'div',
+				{
+					className: `${className}__windows`,
+					style: { backgroundImage: `url(${backgroundImage})` }
+				},
+				el(
+					'div',
+					{
+						className: `${className}__window`
+					},
+					el(
+						'div',
+						{
+							className: 'top-shade'
+						}
+					),
+					el(
+						'div',
+						{
+							className: 'bottom-shade'
+						}
+					)
+				),
+				el(
+					'div',
+					{
+						className: `${className}__window`
+					},
+					el(
+						'div',
+						{
+							className: 'top-shade'
+						}
+					),
+					el(
+						'div',
+						{
+							className: 'bottom-shade'
+						}
+					)
+				),
+				el(
+					'div',
+					{
+						className: `${className}__window`
+					},
+					el(
+						'div',
+						{
+							className: 'top-shade'
+						}
+					),
+					el(
+						'div',
+						{
+							className: 'bottom-shade'
+						}
+					)
+				),
+				el(
+					'div',
+					{
+						className: `${className}__door`
+					}
+				)
+			),
 			el(
 				'div',
 				{ className: `${className}__jsx` },
@@ -130,40 +240,7 @@ function Edit( props ) {
 					'">'
 				)
 			),
-			el(
-				'div',
-				{ className: `${className}__entries` },
-				( posts && posts.map( ( value, index ) => {
-					return (
-						el(
-							'article',
-							{
-								key: index,
-								className: `${className}__entry`
-							},
-							el(
-								'h2',
-								{
-									className: `${className}__title`
-								},
-								el(
-									'a',
-									{
-										href: value.link
-									},
-									value.title.rendered
-								)
-							),
-							el(
-								'time',
-								{
-									dateTime: value.date
-								},
-								moment( value.date ).format( 'MMMM Do, YYYY' ) )
-						)
-					)
-				} ) )
-			)
+			Content
 		)
 	] )
 }
