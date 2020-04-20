@@ -82,7 +82,7 @@
 							printf( '<article class="wp-block-sc-recent-posts__entry"><h2 class="wp-block-sc-recent-posts__title"><a href="%s">%s</a></h2><time datetime="%s">%s</time></article>',
 									esc_url( get_the_permalink() ),
 									esc_html( get_the_title() ),
-									esc_attr( get_the_time( 'C' ) ),
+									esc_attr( get_the_time( DATE_W3C ) ),
 									esc_html( get_the_date() )
 							);
 						}
