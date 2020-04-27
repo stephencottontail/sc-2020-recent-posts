@@ -110,44 +110,43 @@
 	} );
 
 	add_action( 'init', function() {
-		register_post_type( 'themes', array(
+		$common_post_type_args = array(
+			'public' => true,
+			'has_archive' => true,
+			'show_in_rest' => true,
+			'supports' => array( 'title', 'editor', 'custom-fields', 'thumbnail' ),
+			'taxonomies' => array( 'category', 'post_tag' )
+		);
+
+		register_post_type( 'theme-posts', array_merge( array(
 			'labels' => array(
 				'singular_name' => 'Theme Post',
 				'name'          => 'Theme Posts'
 			),
-			'public' => true,
-			'has_archive' => true,
 			'rewrite' => array(
-				'slug' => 'themes'
+				'slug' => 'theme-posts'
 			),
-			'show_in_rest' => true
-		) );
+		), $common_post_type_args ) );
 
-		register_post_type( 'projects', array(
+		register_post_type( 'projects', array_merge( array(
 			'labels' => array(
 				'singular_name' => 'Project',
 				'name'          => 'Projects'
 			),
-			'public' => true,
-			'has_archive' => true,
 			'rewrite' => array(
 				'slug' => 'projects'
 			),
-			'show_in_rest' => true
-		) );
+		), $common_post_type_args ) );
 
 		wp_oembed_add_provider( 'https://codepen.io/*/pen/*', 'https://codepen.io/api/oembed' );
-
-		add_post_type_support( 'themes', 'custom-fields' );
-		add_post_type_support( 'projects', 'custom-fields' );
 
 		register_post_meta( 'projects', 'sc_recent_posts_codepen_url', array(
 			'show_in_rest' => true,
 			'single'       => true,
 			'type'         => 'string'
 		) );
-	} );
-
+	}, 0 );
+		
 	add_action( 'enqueue_block_editor_assets', function() {
 		wp_enqueue_script( 'sc-recent-posts-sidebar', plugins_url( 'js/sidebar.js', __FILE__ ), array( 'wp-block-editor', 'wp-compose',  'wp-data', 'wp-edit-post', 'wp-element', 'wp-plugins' ) );
 	} );
