@@ -87,7 +87,7 @@ function Edit( props ) {
 	)
 
 	const Content =
-		  ( ! posts
+		( ! posts
 			? el(
 				Spinner,
 				{}
@@ -127,7 +127,7 @@ function Edit( props ) {
 					)
 				} )
 			)
-		  )
+		)
 
 	return ( [
 		( types && Controls ),
@@ -235,7 +235,7 @@ function Edit( props ) {
 					el(
 						'span',
 						{ className: 'jsx-attr-string' },
-						postsPerBlock
+						( posts && posts.length < postsPerBlock ? posts.length : postsPerBlock )
 					),
 					'">'
 				)
@@ -248,9 +248,10 @@ function Edit( props ) {
 export default withSelect( ( select, props ) => {
 	const { attributes } = props
 	const { selectedType, postsPerBlock } = attributes
+	const posts = select( 'core' ).getEntityRecords( 'postType', selectedType, { per_page: postsPerBlock } )
 
 	return {
 		types: select( 'core' ).getEntityRecords( 'root', 'postType' ),
-		posts: select( 'core' ).getEntityRecords( 'postType', selectedType, { per_page: postsPerBlock } )
+		posts: posts,
 	}
 } )( Edit )
