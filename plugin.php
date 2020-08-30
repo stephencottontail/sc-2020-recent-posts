@@ -111,10 +111,10 @@ add_action( 'init', function() {
 		'has_archive' => true,
 		'show_in_rest' => true,
 		'supports' => array( 'title', 'editor', 'custom-fields', 'thumbnail' ),
-		'taxonomies' => array( 'category', 'post_tag' )
 	);
 
 	register_post_type( 'theme-posts', array_merge( array(
+		'taxonomies' => array( 'category', 'post_tag' ),
 		'labels' => array(
 			'singular_name' => 'Theme Post',
 			'name'          => 'Theme Posts'
@@ -141,10 +141,22 @@ add_action( 'init', function() {
 		'single'       => true,
 		'type'         => 'string'
 	) );
+
+	register_post_meta( 'projects', 'sc_recent_posts_technologies', array(
+		'show_in_rest' => true,
+		'single'       => true,
+		'type'         => 'string'
+	) );
+
+	register_post_meta( 'projects', 'sc_recent_posts_inspiration', array(
+		'show_in_rest' => true,
+		'single'       => true,
+		'type'         => 'string'
+	) );
 }, 0 );
 
 add_action( 'enqueue_block_editor_assets', function() {
 	$assets = require( 'dist/sidebar.asset.php' );
 
-	wp_enqueue_script( 'sc-recent-posts-sidebar', plugins_url( 'js/sidebar.js', __FILE__ ), $assets['dependencies'], $assets['version'], true );
+	wp_enqueue_script( 'sc-recent-posts-sidebar', plugins_url( 'dist/sidebar.js', __FILE__ ), $assets['dependencies'], $assets['version'], true );
 } );
