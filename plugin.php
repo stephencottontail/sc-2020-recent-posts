@@ -133,27 +133,41 @@ add_action( 'init', function() {
 			'slug' => 'projects'
 		),
 	), $common_post_type_args ) );
+}, 0 );
+
+add_action( 'init', function() {
+	$common_post_meta_args = array(
+		'show_in_rest' => true,
+		'single'       => true,
+		'type'         => 'string'
+	);
 
 	wp_oembed_add_provider( 'https://codepen.io/*/pen/*', 'https://codepen.io/api/oembed' );
 
-	register_post_meta( 'projects', 'sc_recent_posts_codepen_url', array(
-		'show_in_rest' => true,
-		'single'       => true,
-		'type'         => 'string'
-	) );
+	register_post_meta( 'projects', 'sc_recent_posts_codepen_url', array_merge( array(
+		'sanitize_callback' => 'sc_recent_posts_sanitize_url'
+	), $common_post_meta_args ) );
 
-	register_post_meta( 'projects', 'sc_recent_posts_technologies', array(
-		'show_in_rest' => true,
-		'single'       => true,
-		'type'         => 'string'
-	) );
+	register_post_meta( 'projects', 'sc_recent_posts_technologies', array_merge( array(
+		'sanitize_callback' => 'sc_recent_posts_sanitize_text'
+	), $common_post_meta_args ) );
 
-	register_post_meta( 'projects', 'sc_recent_posts_inspiration', array(
-		'show_in_rest' => true,
-		'single'       => true,
-		'type'         => 'string'
-	) );
+	register_post_meta( 'projects', 'sc_recent_posts_inspiration', array_merge( array(
+		'sanitize_callback' => 'sc_recent_posts_sanitize_text'
+	), $common_post_meta_args ) );
 }, 0 );
+
+function sc_recent_posts_sanitize_url( $value ) {
+	return esc_url_raw( $value );
+}
+
+function sc_recent_posts_sanitize_text( $value ) {
+	return wp_kses( $value, array(
+		'a' => array(
+			'href' => array()
+		)
+	) );
+}
 
 add_action( 'enqueue_block_editor_assets', function() {
 	$assets = require( 'dist/sidebar.asset.php' );
