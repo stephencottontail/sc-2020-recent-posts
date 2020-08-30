@@ -134,16 +134,22 @@ registerPlugin( 'sc-recent-posts-sidebar', {
 				title: 'Additional Information'
 			},
 			el(
-				CodePenURL,
-				{}
-			),
-			el(
-				Technologies,
-				{}
-			),
-			el(
-				Inspiration,
-				{}
+				'div',
+				{
+					className: 'sc-recent-posts-panel'
+				},
+				el(
+					CodePenURL,
+					{}
+				),
+				el(
+					Technologies,
+					{}
+				),
+				el(
+					Inspiration,
+					{}
+				)
 			)
 		)
 
