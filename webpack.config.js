@@ -1,4 +1,5 @@
 const path = require( 'path' )
+const dependency = require( '@wordpress/dependency-extraction-webpack-plugin' )
 
 const isProduction = 'production' === process.env.NODE_ENV
 const mode = isProduction ? 'production' : 'development';
@@ -13,18 +14,6 @@ module.exports = {
 		filename: '[name].js',
 		path: path.resolve( process.cwd(), 'dist' )
 	},
-	externals: {
-		'@wordpress/blocks': 'wp.blocks',
-		'@wordpress/block-editor': 'wp.blockEditor',
-		'@wordpress/components': 'wp.components',
-		'@wordpress/compose': 'wp.compose',
-		'@wordpress/data': 'wp.data',
-		'@wordpress/element': 'wp.element',
-		'@wordpress/edit-post': 'wp.editPost',
-		'@wordpress/element': 'wp.element',
-		'@wordpress/plugins': 'wp.plugins',
-		'moment': 'window.moment'
-	},
 	module: {
 		rules: [ {
 			test: /\.js$/,
@@ -37,6 +26,9 @@ module.exports = {
 			} ]
 		} ]
 	},
+	plugins: [
+		new dependency()
+	],
 	stats: {
 		children: false
 	}
