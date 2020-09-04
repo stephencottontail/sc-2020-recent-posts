@@ -46,45 +46,26 @@ class SC_Recent_Posts extends WP_Block_Type {
 			ob_start(); ?>
 
 			<div class="wp-block-sc-recent-posts">
-				<div class="wp-block-sc-recent-posts__windows" style="<?php printf( 'background-image: url(%s);', $background_image ); ?>">
-					<div class="wp-block-sc-recent-posts__window">
-						<div class="top-shade"></div>
-						<div class="bottom-shade"></div>
-					</div>
-					<div class="wp-block-sc-recent-posts__window">
-						<div class="top-shade"></div>
-						<div class="bottom-shade"></div>
-					</div>
-					<div class="wp-block-sc-recent-posts__window">
-						<div class="top-shade"></div>
-						<div class="bottom-shade"></div>
-					</div>
-					<div class="wp-block-sc-recent-posts__door"></div>
-				</div><!-- .wp-block-sc-recent-posts__windows -->
-<?php
-		printf( '<div class="wp-block-sc-recent-posts__jsx"><code class="jsx">&lt;<span class="jsx-tag">%s</span> <span class="jsx-attr">type</span>="<span class="jsx-attr-string">%s</span>" <span class="jsx-attr">number</span>="<span class="jsx-attr-string">%s</span>"&gt;</code></div>',
-			'RecentPosts',
-			$selected_type,
-			$posts_per_block
-		);
-?>
+				<h2 class="wp-block-sc-recent-posts__title"><?php echo esc_html( $selected_type ); ?></h2>
+				<div class="img-wrapper">
+					<div class="overlay"></div>
+					<?php printf( '<img src="%s" />', $background_image ); ?>
+				</div>
 				<div class="wp-block-sc-recent-posts__entries">
-<?php
-		while ( $recent_posts_query->have_posts() ) {
-			$recent_posts_query->the_post();
+				<?php
+				while ( $recent_posts_query->have_posts() ) {
+					$recent_posts_query->the_post();
 
-			printf( '<article class="wp-block-sc-recent-posts__entry"><h2 class="wp-block-sc-recent-posts__title"><a href="%s">%s</a></h2><time datetime="%s">%s</time></article>',
-				esc_url( get_the_permalink() ),
-				esc_html( get_the_title() ),
-				esc_attr( get_the_time( DATE_W3C ) ),
-				esc_html( get_the_date() )
-			);
-		}
-?>
+					printf( '<article class="wp-block-sc-recent-posts__entry"><a href="%s">%s</a></article>',
+						esc_url( get_the_permalink() ),
+						str_pad( ( $recent_posts_query->current_post + 1 ), 2, "0", STR_PAD_LEFT ) . '/ ' . esc_html( get_the_title() ),
+					);
+				}
+				?>
 				</div><!-- .wp-block-sc-recent-posts__entries -->
 			</div><!-- .wp-block-sc-recent-posts -->
 
-<?php
+		<?php
 		endif;
 
 		wp_reset_postdata();

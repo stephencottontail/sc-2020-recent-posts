@@ -86,6 +86,37 @@ function Edit( props ) {
 		)
 	)
 
+	const Title = (
+		el(
+			'h2',
+			{
+				className: `${className}__title`
+			},
+			selectedType
+		)
+	)
+
+	const Image = (
+		el(
+			'div',
+			{
+				className: 'img-wrapper'
+			},
+			el(
+				'div',
+				{
+					className: 'overlay'
+				}
+			),
+			el(
+				'img',
+				{
+					src: backgroundImage
+				}
+			)
+		)
+	)
+
 	const Content =
 		  ( ! posts
 			? el(
@@ -104,24 +135,16 @@ function Edit( props ) {
 								className: `${className}__entry`
 							},
 							el(
-								'h2',
+								'a',
 								{
-									className: `${className}__title`
+									href: value.link
 								},
+								`${( "00" + ( index + 1 ) ).slice( '1' )}/ `,
 								el(
-									'a',
-									{
-										href: value.link
-									},
+									'span',
+									{},
 									value.title.rendered
 								)
-							),
-							el(
-								'time',
-								{
-									dateTime: value.date
-								},
-								moment( value.date ).format( 'MMMM Do, YYYY' )
 							)
 						)
 					)
@@ -134,112 +157,8 @@ function Edit( props ) {
 		el(
 			'div',
 			{ className: className },
-			el(
-				'div',
-				{
-					className: `${className}__windows`,
-					style: { backgroundImage: `url(${backgroundImage})` }
-				},
-				el(
-					'div',
-					{
-						className: `${className}__window`
-					},
-					el(
-						'div',
-						{
-							className: 'top-shade'
-						}
-					),
-					el(
-						'div',
-						{
-							className: 'bottom-shade'
-						}
-					)
-				),
-				el(
-					'div',
-					{
-						className: `${className}__window`
-					},
-					el(
-						'div',
-						{
-							className: 'top-shade'
-						}
-					),
-					el(
-						'div',
-						{
-							className: 'bottom-shade'
-						}
-					)
-				),
-				el(
-					'div',
-					{
-						className: `${className}__window`
-					},
-					el(
-						'div',
-						{
-							className: 'top-shade'
-						}
-					),
-					el(
-						'div',
-						{
-							className: 'bottom-shade'
-						}
-					)
-				),
-				el(
-					'div',
-					{
-						className: `${className}__door`
-					}
-				)
-			),
-			el(
-				'div',
-				{ className: `${className}__jsx` },
-				el(
-					'code',
-					{ className: 'jsx' },
-					'<',
-					el(
-						'span',
-						{ className: 'jsx-tag' },
-						'RecentPosts'
-					),
-					' ',
-					el(
-						'span',
-						{ className: 'jsx-attr' },
-						'type'
-					),
-					'="',
-					el(
-						'span',
-						{ className: 'jsx-attr-string' },
-						selectedType
-					),
-					'" ',
-					el(
-						'span',
-						{ className: 'jsx-attr' },
-						'number',
-					),
-					'="',
-					el(
-						'span',
-						{ className: 'jsx-attr-string' },
-						postsPerBlock
-					),
-					'">'
-				)
-			),
+			Title,
+			( backgroundImage && Image ),
 			Content
 		)
 	] )
