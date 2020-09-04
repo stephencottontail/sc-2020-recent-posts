@@ -46,7 +46,17 @@ class SC_Recent_Posts extends WP_Block_Type {
 			ob_start(); ?>
 
 			<div class="wp-block-sc-recent-posts">
-				<h2 class="wp-block-sc-recent-posts__title"><?php echo esc_html( $selected_type ); ?></h2>
+				<h2 class="wp-block-sc-recent-posts__title">
+					<?php
+					$suffix = '';
+
+					if ( 0 < $recent_posts_query->found_posts ) {
+						$suffix = 's';
+					}
+
+					echo esc_html( $selected_type . $suffix );
+					?>
+				</h2>
 				<div class="img-wrapper">
 					<div class="overlay"></div>
 					<?php printf( '<img src="%s" />', $background_image ); ?>

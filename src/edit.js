@@ -86,15 +86,23 @@ function Edit( props ) {
 		)
 	)
 
-	const Title = (
-		el(
-			'h2',
-			{
-				className: `${className}__title`
-			},
-			selectedType
+	const Title = () => {
+		let suffix = ''
+
+		if ( posts && 1 != posts.length ) {
+			suffix = 's'
+		}
+
+		return ( posts &&
+			el(
+				'h2',
+				{
+					className: `${className}__title`
+				},
+				selectedType + suffix
+			)
 		)
-	)
+	}
 
 	const Image = (
 		el(
@@ -157,7 +165,10 @@ function Edit( props ) {
 		el(
 			'div',
 			{ className: className },
-			Title,
+			el(
+				Title,
+				{}
+			),
 			( backgroundImage && Image ),
 			Content
 		)
