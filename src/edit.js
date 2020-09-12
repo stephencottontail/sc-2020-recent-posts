@@ -89,7 +89,7 @@ function Edit( props ) {
 	const Title = () => {
 		let suffix = ''
 
-		if ( posts && 1 != posts.length ) {
+		if ( 'post' == selectedType && posts && 1 != posts.length ) {
 			suffix = 's'
 		}
 

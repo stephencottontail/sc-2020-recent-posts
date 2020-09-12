@@ -50,7 +50,7 @@ class SC_Recent_Posts extends WP_Block_Type {
 					<?php
 					$suffix = '';
 
-					if ( 0 < $recent_posts_query->found_posts ) {
+					if ( 'post' == $selected_type && 0 < $recent_posts_query->found_posts ) {
 						$suffix = 's';
 					}
 
