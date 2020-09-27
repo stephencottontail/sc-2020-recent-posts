@@ -101,10 +101,13 @@ add_action( 'init', function() {
 		'public' => true,
 		'has_archive' => true,
 		'show_in_rest' => true,
+		'show_in_graphql' => true,
 		'supports' => array( 'title', 'editor', 'custom-fields', 'thumbnail' ),
 	);
 
 	register_post_type( 'theme-posts', array_merge( array(
+		'graphql_single_name' => 'ThemePost',
+		'graphql_plural_name' => 'ThemePosts',
 		'taxonomies' => array( 'category', 'post_tag' ),
 		'labels' => array(
 			'singular_name' => 'Theme Post',
@@ -116,6 +119,8 @@ add_action( 'init', function() {
 	), $common_post_type_args ) );
 
 	register_post_type( 'projects', array_merge( array(
+		'graphql_single_name' => 'Project',
+		'graphql_plural_name' => 'Projects',
 		'labels' => array(
 			'singular_name' => 'Project',
 			'name'          => 'Projects'
@@ -147,6 +152,32 @@ add_action( 'init', function() {
 		'sanitize_callback' => 'sc_recent_posts_sanitize_text'
 	), $common_post_meta_args ) );
 }, 0 );
+
+add_action( 'graphql_register_types', function() {
+	register_graphql_field( 'Project', 'codepen', array(
+		'type'        => 'String',
+		'description' => 'A CodePen URL for the project',
+		'resolve'     => function( $post ) {
+			return get_post_meta( $post->ID, 'sc_recent_posts_codepen_url', true ) ?: '';
+		}
+	) );
+
+	register_graphql_field( 'Project', 'technologies', array(
+		'type'        => 'String',
+		'description' => 'A CodePen URL for the project',
+		'resolve'     => function( $post ) {
+			return get_post_meta( $post->ID, 'sc_recent_posts_technologies', true ) ?: '';
+		}
+	) );
+
+	register_graphql_field( 'Project', 'inspiration', array(
+		'type'        => 'String',
+		'description' => 'A CodePen URL for the project',
+		'resolve'     => function( $post ) {
+			return get_post_meta( $post->ID, 'sc_recent_posts_inspiration', true ) ?: '';
+		}
+	) );
+} );
 
 function sc_recent_posts_sanitize_url( $value ) {
 	return esc_url_raw( $value );
