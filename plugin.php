@@ -102,7 +102,7 @@ add_action( 'init', function() {
 		'has_archive' => true,
 		'show_in_rest' => true,
 		'show_in_graphql' => true,
-		'supports' => array( 'title', 'editor', 'custom-fields', 'thumbnail' ),
+		'supports' => array( 'title', 'excerpt', 'editor', 'custom-fields', 'thumbnail' ),
 	);
 
 	register_post_type( 'theme-posts', array_merge( array(
